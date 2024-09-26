@@ -3,14 +3,18 @@
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('home');
+})->name('home');
 
 Route::view('/teste', 'tela-teste');
 
-Route::view('/cadastro', 'tela-cadastro');
+Route::view('/cadastro', 'tela-cadastro')->name('telaCadastro');
+
+Route::view('/login', 'login')->name('login');
 
 Route::post('/salva-usuario', 
     function (Request $request){
@@ -23,6 +27,25 @@ Route::post('/salva-usuario',
         return "Salvo com sucesso";
     }
 )->name('SalvaUsuario');
+
+Route::post('/logar', 
+    function (Request $request){
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+ 
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+ 
+            return redirect()->intended('/');
+        }
+ 
+        return back()->withErrors([
+            'email' => 'Usuário ou senha inválidos',
+        ])->onlyInput('email');
+    }
+)->name('logar');
 
 
 
