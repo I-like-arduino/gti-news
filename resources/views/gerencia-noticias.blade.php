@@ -1,6 +1,5 @@
 <x-base>
-    <h1>Gestao de Noticias</h1>
-
+    <h1 class="bg-white-50 text-2xl text-center font-semibold whitespace-nowrap dark:text-white p-3 sm:p-5">Gestao de Notícias </h1>
     <div>
         <section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
             <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
@@ -75,8 +74,8 @@
                                 @foreach($noticias as $noticia)
                                 <tr class="border-b dark:border-gray-700">
                                     <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{$noticia->Titulo}}&#34;</th>
-                                    <td class="px-4 py-3">PC</td>
-                                    <td class="px-4 py-3">Apple</td>
+                                    <td class="px-4 py-3">{{$noticia->data}}</td>
+                                    <td class="px-4 py-3">{{$noticia->user->name}}</td>
                                     <td class="px-4 py-3">300</td>
                                     <td class="px-4 py-3">$2999</td>
                                     <td class="px-4 py-3 flex items-center justify-end">
