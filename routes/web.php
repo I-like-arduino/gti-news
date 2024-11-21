@@ -9,11 +9,9 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
 
-    $noticias = Noticia::orderBy('id', 'desc')->get();
-    $noticias = Noticia::paginate(10);
+    $noticias = Noticia::orderBy('id', 'desc')->paginate(6);
 
     return view('home', compact('noticias'));
-    return User::paginate();
 
 })->name('home');
 
@@ -64,7 +62,7 @@ Route::post('/logar',
 
 Route::get('/gerencia-noticias',function(){
 
-    $noticias = Noticia::orderBy('id', 'desc')->get();
+    $noticias = Noticia::orderBy('id', 'desc')->paginate(15);
 
     return view('gerencia-noticias', compact('noticias'));
 
