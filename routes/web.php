@@ -8,7 +8,13 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
-    return view('home');
+
+    $noticias = Noticia::orderBy('id', 'desc')->get();
+    $noticias = Noticia::paginate(10);
+
+    return view('home', compact('noticias'));
+    return User::paginate();
+
 })->name('home');
 
 Route::view('/teste', 'tela-teste');
@@ -62,7 +68,7 @@ Route::get('/gerencia-noticias',function(){
 
     return view('gerencia-noticias', compact('noticias'));
 
-})->name('gerenciaNoticias');
+})->name('gerenciaNoticias')->middleware('auth');
 
 Route::get('/cadastra-noticia',function(){
 
@@ -70,7 +76,7 @@ Route::get('/cadastra-noticia',function(){
 
     return view('cadastra-noticia', compact('noticia'));
 
-})->name('cadastraNoticia');
+})->name('cadastraNoticia')->middleware('auth');
 
 Route::post('/salva-noticia', 
     function (Request $request){
@@ -87,13 +93,15 @@ Route::post('/salva-noticia',
         
         return redirect()->route('gerenciaNoticias');
     }
-)->name('SalvaNoticia');
+)->name('SalvaNoticia')->middleware('auth');
 
 Route::get('/exibe-noticia/{noticia}',
     function (Noticia $noticia) {
         #$noticia = Noticia::find($noticia);
-
+        $noticias = Noticia::paginate(15);
+        return Noticia::paginate();
         return view('exibe-noticia', compact('noticia'));
+        
     }
 )->name('exibeNoticia');
 
@@ -103,7 +111,7 @@ Route::get('/edita-noticia/{noticia}',
 
         return view('edita-noticia', compact('noticia'));
     }
-)->name('editaNoticia');
+)->name('editaNoticia')->middleware('auth');
 
 Route::post('/altera-noticia/{noticia}', 
     function (Request $request, Noticia $noticia){
@@ -119,7 +127,7 @@ Route::post('/altera-noticia/{noticia}',
         
         return redirect()->route('gerenciaNoticias');
     }
-)->name('alteraNoticia');
+)->name('alteraNoticia')->middleware('auth');
 
 Route::get('/deleta-noticia/{noticia}', 
     function (Noticia $noticia){
@@ -127,4 +135,4 @@ Route::get('/deleta-noticia/{noticia}',
         $noticia -> delete();
         return redirect()->route('gerenciaNoticias');
     }
-)->name('deletaNoticia');
+)->name('deletaNoticia')->middleware('auth');
