@@ -97,7 +97,6 @@ Route::get('/exibe-noticia/{noticia}',
     function (Noticia $noticia) {
         #$noticia = Noticia::find($noticia);
         $noticias = Noticia::paginate(15);
-        return Noticia::paginate();
         return view('exibe-noticia', compact('noticia'));
         
     }
