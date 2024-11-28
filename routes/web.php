@@ -134,3 +134,9 @@ Route::get('/deleta-noticia/{noticia}',
         return redirect()->route('gerenciaNoticias');
     }
 )->name('deletaNoticia')->middleware('auth');
+
+Route::view('/sobreocurso', 'sobreocurso')->name('sobreocurso');
+Route::view('/institucioinal', 'institucional')->name('institucional');
+Route::view('/alunos', 'alunos')->name('alunos');
+Route::view('/sobreocurso', 'sobreocurso')->name('sobreocurso');
+Route::view('/contato', 'contato')->name('contato');

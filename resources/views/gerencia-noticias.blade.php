@@ -99,8 +99,20 @@
                                 </tr>
                                 @endforeach
 
+                            </div>
+
                             </tbody>
+
                     </div>
+                    <div class="py-8">
+                        {{ $noticias->links() }}
+                        <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                        Mostrando {{$noticias->firstItem()}} notícias
+                        <span class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0 text-indent: 3m"> &nbspde
+                        {{$noticias->lastItem()}}
+                    </div>    
+                    </div>
+                            
 
 
 </x-base>
